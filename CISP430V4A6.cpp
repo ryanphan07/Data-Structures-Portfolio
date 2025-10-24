@@ -1,0 +1,67 @@
+// Ryan Phan CISP 430 A6
+// Define Record struct with a key field
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include "table2.h"
+
+struct Record {
+    int key;  // Key for hashing
+};
+
+// Main function
+int main() {
+    // Seed RNG with current time
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
+    // Create two hash tables
+    Table<Record> table1;
+    Table<Record> table2;
+
+    // Print initial empty tables
+    std::cout << "Initial Tables:\n";
+    for (int i = 0; i < TABLE_SIZE; ++i) {
+        table1.print(i);
+        table2.print(i);
+    }
+
+    // Insert 70 random keys into each table
+    for (int i = 0; i < 70; ++i) {
+        Record r1 = { std::rand() % 201 }; // Keys from 0-200
+        Record r2 = { std::rand() % 201 };
+        table1.insert(r1);
+        table2.insert(r2);
+    }
+
+    // Print tables after insertion
+    std::cout << "\nTables after insertion:\n";
+    for (int i = 0; i < TABLE_SIZE; ++i) {
+        table1.print(i);
+        table2.print(i);
+    }
+
+    // Remove all possible keys from table1
+    for (int i = 0; i < 201; ++i) {
+        table1.remove(i);
+    }
+
+    // Print tables after removal
+    std::cout << "\nTables after removing data from table1:\n";
+    for (int i = 0; i < TABLE_SIZE; ++i) {
+        table1.print(i);
+        table2.print(i);
+    }
+
+    // Assign table2 to table1
+    table1 = table2;
+
+    // Print tables after assignment
+    std::cout << "\nTables after assigning table2 to table1:\n";
+    for (int i = 0; i < TABLE_SIZE; ++i) {
+        table1.print(i);
+        table2.print(i);
+    }
+
+    return 0; // Exit program
+}
