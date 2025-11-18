@@ -1,4 +1,3 @@
-// Ryan Phan CISP 430 A6
 // Define Record struct with a key field
 
 #include <iostream>
